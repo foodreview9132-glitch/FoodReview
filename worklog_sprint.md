@@ -1,0 +1,13 @@
+Sprint 1 – 10-03-2026
+
+User Story:
+As a user, I want the app to launch with a basic structure so I can start using it.
+
+What to Do:
+Initialize project and add dependencies
+Setup Firebase and AppModule
+Create theme and ViewModel factory
+Implement AuthRepository
+
+Result:
+App runs successfully with base architecture ready.
