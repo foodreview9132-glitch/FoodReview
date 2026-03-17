@@ -25,3 +25,17 @@ Store session using PreferenceManager
 
 Result:
 User can register and log in successfully.
+
+Sprint 3 – 17-03-2026
+
+User Story:
+As a user, I want to navigate the app and manage my account.
+
+What to Do:
+Implement navigation flow
+Add Settings screen
+Enable theme toggle (dark mode)
+Add logout functionality
+
+Result:
+User can navigate and control app settings.

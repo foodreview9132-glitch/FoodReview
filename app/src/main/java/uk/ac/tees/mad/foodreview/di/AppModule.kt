@@ -5,11 +5,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import uk.ac.tees.mad.foodreview.data.repository.AuthRepositoryImpl
 import uk.ac.tees.mad.foodreview.domain.repository.AuthRepository
+import uk.ac.tees.mad.foodreview.utils.PreferenceManager
 
 interface  AppModule {
     val firebaseAuth : FirebaseAuth
     val firebaseFirestore : FirebaseFirestore
     val authRepository : AuthRepository
+    val preferenceManager : PreferenceManager
 }
 
 class AppModuleImpl(private val context : Context)
@@ -23,7 +25,11 @@ class AppModuleImpl(private val context : Context)
     override val authRepository: AuthRepository by lazy {
         AuthRepositoryImpl(
             firebaseAuth = firebaseAuth ,
-            firebaseFirestore = firebaseFirestore
+            firebaseFirestore = firebaseFirestore ,
+            preferenceManager = preferenceManager
         )
+    }
+    override val preferenceManager: PreferenceManager by lazy {
+        PreferenceManager(context)
     }
 }

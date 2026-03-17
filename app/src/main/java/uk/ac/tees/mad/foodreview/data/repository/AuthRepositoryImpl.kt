@@ -5,10 +5,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import uk.ac.tees.mad.foodreview.domain.model.User
 import uk.ac.tees.mad.foodreview.domain.repository.AuthRepository
+import uk.ac.tees.mad.foodreview.utils.PreferenceManager
 
 class AuthRepositoryImpl(
     private val firebaseAuth: FirebaseAuth,
-    private val firebaseFirestore: FirebaseFirestore
+    private val firebaseFirestore: FirebaseFirestore ,
+    private val preferenceManager: PreferenceManager
 ) : AuthRepository {
     override suspend fun signUp(
         email: String,
@@ -16,7 +18,7 @@ class AuthRepositoryImpl(
     ): Result<Unit> {
         return try {
             val result = firebaseAuth
-                .signInWithEmailAndPassword(email, password)
+                .createUserWithEmailAndPassword(email ,password)
                 .await()
             val userId = result.user?.uid ?: throw Exception("User ID is null")
             try {
@@ -29,6 +31,7 @@ class AuthRepositoryImpl(
                 result.user?.delete()
                 throw e
             }
+            preferenceManager.setLoggedIn(true)
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
@@ -43,6 +46,7 @@ class AuthRepositoryImpl(
             firebaseAuth
                 .signInWithEmailAndPassword(email , password)
                 .await()
+            preferenceManager.setLoggedIn(true)
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
@@ -53,6 +57,7 @@ class AuthRepositoryImpl(
         return try {
             firebaseAuth
                 .signOut()
+            preferenceManager.setLoggedIn(false)
             Result.success(Unit)
         } catch (e: Exception) {
 
