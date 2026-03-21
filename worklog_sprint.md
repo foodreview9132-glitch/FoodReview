@@ -39,3 +39,17 @@ Add logout functionality
 
 Result:
 User can navigate and control app settings.
+
+Sprint 4 – 21-03-2026
+
+User Story:
+As a user, I want to submit a food review.
+
+What to Do:
+Design feedback screen
+Add ViewModel and state handling
+Setup Room database
+Connect repository for data handling
+
+Result:
+User can submit and store feedback.
