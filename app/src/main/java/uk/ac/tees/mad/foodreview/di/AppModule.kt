@@ -4,7 +4,9 @@ import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import uk.ac.tees.mad.foodreview.data.repository.AuthRepositoryImpl
+import uk.ac.tees.mad.foodreview.data.repository.FoodReviewRepositoryImpl
 import uk.ac.tees.mad.foodreview.domain.repository.AuthRepository
+import uk.ac.tees.mad.foodreview.domain.repository.FoodReviewRepository
 import uk.ac.tees.mad.foodreview.utils.PreferenceManager
 
 interface  AppModule {
@@ -12,6 +14,7 @@ interface  AppModule {
     val firebaseFirestore : FirebaseFirestore
     val authRepository : AuthRepository
     val preferenceManager : PreferenceManager
+    val foodReviewRepository : FoodReviewRepository
 }
 
 class AppModuleImpl(private val context : Context)
@@ -32,4 +35,11 @@ class AppModuleImpl(private val context : Context)
     override val preferenceManager: PreferenceManager by lazy {
         PreferenceManager(context)
     }
+    override val foodReviewRepository: FoodReviewRepository by lazy {
+        FoodReviewRepositoryImpl(
+            firebaseAuth = firebaseAuth ,
+            firebaseFirestore = firebaseFirestore
+        )
+    }
+
 }
