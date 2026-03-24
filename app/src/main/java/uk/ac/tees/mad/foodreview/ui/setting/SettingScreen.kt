@@ -1,17 +1,28 @@
 package uk.ac.tees.mad.foodreview.ui.setting
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -60,6 +71,7 @@ fun SettingScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingScreenContent(
     onBackClick: () -> Unit,
@@ -70,26 +82,46 @@ fun SettingScreenContent(
     onLogoutClick: () -> Unit,
     isLoading: Boolean
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .statusBarsPadding()) {
-            SettingTopBar(
-                onBackClick = onBackClick
+
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "Settings"
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onBackClick) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "back"
+                        )
+                    }
+                }
             )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(horizontal = Dimens.ScreenHorizontal) ,
+        ) {
+            Spacer(modifier = Modifier.height(Dimens.ExtraSmall))
 
             UserProfileCard(
                 email = userEmail,
                 lastLogin = lastLogin,
-                modifier = Modifier.padding(horizontal = Dimens.ScreenHorizontal)
+                modifier = Modifier
             )
 
+            Spacer(modifier = Modifier.height(Dimens.ExtraSmall))
+
             ThemeSettingCard(
-                modifier = Modifier.padding(horizontal = Dimens.ScreenHorizontal),
+                modifier = Modifier,
                 isDarkMode = isDarkMode,
                 onToggle = onToggleMode
             )
@@ -97,9 +129,12 @@ fun SettingScreenContent(
             Spacer(
                 modifier = Modifier.weight(1f)
             )
+
             OutlinedButton(
                 onClick = onLogoutClick,
-                enabled = !isLoading
+                enabled = !isLoading,
+                modifier = Modifier
+                    .fillMaxWidth()
             ) {
                 when {
                     isLoading -> {
@@ -108,6 +143,7 @@ fun SettingScreenContent(
                             color = MaterialTheme.colorScheme.primary
                         )
                     }
+
                     else -> {
                         Text(
                             text = "Logout"

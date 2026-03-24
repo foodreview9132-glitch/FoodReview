@@ -5,8 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import uk.ac.tees.mad.foodreview.ui.home.HomeScreen
+import uk.ac.tees.mad.foodreview.ui.feedback_submission.FeedbackSubmissionScreen
 import uk.ac.tees.mad.foodreview.ui.login.LoginScreen
+import uk.ac.tees.mad.foodreview.ui.reviews.ReviewListScreen
+import uk.ac.tees.mad.foodreview.ui.setting.SettingScreen
 import uk.ac.tees.mad.foodreview.ui.signup.SignUpScreen
 
 @Composable
@@ -22,8 +24,23 @@ fun AppNavigationHost(
         modifier = modifier
     ) {
 
-        composable(route = NavigationRoutes.Home.route){
-            HomeScreen()
+        composable(route = NavigationRoutes.DraftFeedback.route){
+            FeedbackSubmissionScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable(NavigationRoutes.Reviews.route){
+            ReviewListScreen(
+                onSettingClick = {
+                    navController.navigate(NavigationRoutes.Setting.route)
+                },
+                onDraftFeedbackClick = {
+                    navController.navigate(NavigationRoutes.DraftFeedback.route)
+                },
+            )
         }
         composable(route = NavigationRoutes.Login.route){
             LoginScreen(
@@ -31,7 +48,7 @@ fun AppNavigationHost(
                     navController.navigate(NavigationRoutes.SignUp.route)
                 } ,
                 onNavigateToHome = {
-                    navController.navigate(NavigationRoutes.Home.route){
+                    navController.navigate(NavigationRoutes.Reviews.route){
                         popUpTo(NavigationRoutes.Login.route){
                             inclusive = true
                         }
@@ -45,7 +62,7 @@ fun AppNavigationHost(
                     navController.popBackStack()
                 } ,
                 onNavigateToHome = {
-                    navController.navigate(NavigationRoutes.Home.route){
+                    navController.navigate(NavigationRoutes.Reviews.route){
                         popUpTo(NavigationRoutes.SignUp.route){
                             inclusive = true
                         }
@@ -54,7 +71,18 @@ fun AppNavigationHost(
             )
         }
         composable(route = NavigationRoutes.Setting.route){
-
+            SettingScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                } ,
+                onNavigateToLogin = {
+                    navController.navigate(NavigationRoutes.Login.route){
+                        popUpTo(NavigationRoutes.Setting.route){
+                            inclusive = true
+                        }
+                    }
+                }
+            )
         }
     }
 }

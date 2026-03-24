@@ -6,7 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import uk.ac.tees.mad.foodreview.navigation.AppNavigationHost
 import uk.ac.tees.mad.foodreview.navigation.NavigationRoutes
@@ -31,20 +33,20 @@ class MainActivity : ComponentActivity() {
         splashScreen.setKeepOnScreenCondition {
             splashViewModel.splashUiState.value is SplashUiState.Loading
         }
-
         setContent {
             val navController = rememberNavController()
             val startDestination = when(splashViewModel
                 .splashUiState
                 .collectAsState()
                 .value){
-                SplashUiState.NavigateToHome -> NavigationRoutes.Home
+                SplashUiState.NavigateToHome -> NavigationRoutes.Reviews
                 SplashUiState.NavigateToLogin -> NavigationRoutes.Login
                 else -> null
             }
-
+            val preference = FoodReviewApp.appModule.preferenceManager
+            val isDarkMode by preference.isDarkModeFLow.collectAsStateWithLifecycle()
             startDestination?.let{
-                FoodReviewTheme {
+                FoodReviewTheme(isDarkMode = isDarkMode) {
                     AppNavigationHost(
                         startDestination = startDestination.route ,
                         navController = navController

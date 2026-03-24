@@ -53,3 +53,17 @@ Connect repository for data handling
 
 Result:
 User can submit and store feedback.
+
+Sprint 5 – 24-03-2026
+
+User Story:
+As a user, I want to view and share reviews.
+
+What to Do:
+Create review list screen
+Add sharing feature
+Implement haptic feedback
+Finalize UI and branding
+
+Result:
+App is complete with viewing, sharing, and polished UI.
