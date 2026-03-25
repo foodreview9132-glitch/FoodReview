@@ -35,11 +35,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedback
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.view.HapticFeedbackConstantsCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import uk.ac.tees.mad.foodreview.FoodReviewApp
@@ -60,9 +64,11 @@ fun FeedbackSubmissionScreen(
 ) {
     val uiState by viewModel.feedBackUiState.collectAsStateWithLifecycle()
 
+    val hapticFeedback = LocalHapticFeedback.current
     LaunchedEffect(uiState.isSubmissionSuccess) {
         if(uiState.isSubmissionSuccess){
             viewModel.reset()
+            hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
         }
     }
 

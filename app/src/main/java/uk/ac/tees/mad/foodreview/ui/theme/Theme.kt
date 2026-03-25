@@ -49,14 +49,15 @@ private val DarkColorScheme = darkColorScheme(
 
 @Composable
 fun FoodReviewTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+//    darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
+    isDarkMode : Boolean ,
     content: @Composable () -> Unit
 ) {
 
     val colorScheme = when {
-        darkTheme -> DarkColorScheme
+        isDarkMode -> DarkColorScheme
         else -> LightColorScheme
     }
 

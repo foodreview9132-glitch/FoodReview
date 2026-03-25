@@ -1,6 +1,5 @@
 package uk.ac.tees.mad.foodreview.ui.signup
 
-import android.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -43,7 +42,8 @@ fun SignUpScreen(
     viewModel: SignUpViewModel = viewModel<SignUpViewModel>(
         factory = viewModelFactory {
             SignUpViewModel(
-                authRepository = FoodReviewApp.appModule.authRepository
+                authRepository = FoodReviewApp.appModule.authRepository ,
+                preferenceManager = FoodReviewApp.appModule.preferenceManager
             )
         }
     ) ,

@@ -8,9 +8,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import uk.ac.tees.mad.foodreview.domain.repository.AuthRepository
+import uk.ac.tees.mad.foodreview.utils.PreferenceManager
 import uk.ac.tees.mad.foodreview.utils.mapAuthError
 
-class LoginViewModel(private val authRepository: AuthRepository) : ViewModel(){
+class LoginViewModel(private val authRepository: AuthRepository ,
+ private val  preferenceManager: PreferenceManager) : ViewModel(){
 
     private val _loginUiState = MutableStateFlow(LoginUiState())
     val loginUiState : StateFlow<LoginUiState> = _loginUiState.asStateFlow()
@@ -51,6 +53,9 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel(){
             authRepository
                 .signIn(email = _loginUiState.value.email , password = _loginUiState.value.password)
                 .onSuccess { success ->
+                    preferenceManager.setLoggedIn(true)
+                    preferenceManager.setEmail(email = _loginUiState.value.email )
+                    preferenceManager.setLastLogin(formatDate(System.currentTimeMillis()))
                     _loginUiState.update {
                         it.copy(
                             isLoading = false,
@@ -69,6 +74,12 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel(){
                 }
         }
     }
+
+    fun formatDate(timestamp: Long): String {
+        val sdf = java.text.SimpleDateFormat("dd.MM.yyyy", java.util.Locale.getDefault())
+        return sdf.format(java.util.Date(timestamp))
+    }
+
 }
 
 

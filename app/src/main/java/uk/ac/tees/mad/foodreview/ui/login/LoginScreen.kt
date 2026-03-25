@@ -44,7 +44,8 @@ fun LoginScreen(
     viewmodel: LoginViewModel = viewModel<LoginViewModel>(
         factory = viewModelFactory {
             LoginViewModel(
-                authRepository = FoodReviewApp.appModule.authRepository
+                authRepository = FoodReviewApp.appModule.authRepository ,
+                preferenceManager = FoodReviewApp.appModule.preferenceManager
             )
         }
     ) ,

@@ -26,6 +26,9 @@ fun ThemeSettingCard(
         modifier = modifier
             .fillMaxWidth(),
         shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
         elevation = CardDefaults.cardElevation(Dimens.ElevationSmall)
     ) {
         Row(
@@ -44,9 +47,9 @@ fun ThemeSettingCard(
                             style = MaterialTheme.typography.titleMedium
                         )
                         Text(
-                            text = "Disable dark theme",
+                            text = "Enable Dark Theme",
                             style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.25f)
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.50f)
                         )
 
                     }
@@ -57,7 +60,7 @@ fun ThemeSettingCard(
                             style = MaterialTheme.typography.titleMedium
                         )
                         Text(
-                            text = "Enable light theme",
+                            text = "Enable Dark theme",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.25f)
                         )
@@ -69,10 +72,7 @@ fun ThemeSettingCard(
                 checked = isDarkMode,
                 onCheckedChange = {
                     onToggle(it)
-                }  ,
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = MaterialTheme.colorScheme.primary,
-                )
+                } ,
             )
         }
     }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,13 +24,21 @@ fun UserProfileCard(
     modifier: Modifier = Modifier
 ) {
 
-    Card(modifier = modifier.fillMaxWidth()) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(Dimens.ElevationSmall)
+    ) {
 
         Row(
-            modifier = Modifier.fillMaxWidth() .padding(Dimens.CardPadding),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(Dimens.CardPadding),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = "user",
@@ -37,7 +46,6 @@ fun UserProfileCard(
                     .size(Dimens.IconLarge)
                     .padding(end = Dimens.Small)
             )
-
             Column(
                 modifier = Modifier
                     .weight(1f)

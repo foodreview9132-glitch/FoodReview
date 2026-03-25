@@ -1,17 +1,12 @@
 package uk.ac.tees.mad.foodreview.ui.setting
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
@@ -32,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import uk.ac.tees.mad.foodreview.FoodReviewApp
-import uk.ac.tees.mad.foodreview.ui.setting.component.SettingTopBar
 import uk.ac.tees.mad.foodreview.ui.setting.component.ThemeSettingCard
 import uk.ac.tees.mad.foodreview.ui.setting.component.UserProfileCard
 import uk.ac.tees.mad.foodreview.ui.theme.Dimens

@@ -32,6 +32,7 @@ class AuthRepositoryImpl(
                 throw e
             }
             preferenceManager.setLoggedIn(true)
+
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

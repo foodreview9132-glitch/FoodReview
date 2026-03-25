@@ -1,5 +1,7 @@
 package uk.ac.tees.mad.foodreview.ui.reviews
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,13 +29,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -135,12 +137,12 @@ fun ReviewListScreenContent(
                 else -> {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(Dimens.Medium)
+                        contentPadding = PaddingValues(Dimens.Medium),
+                        verticalArrangement = Arrangement.spacedBy(Dimens.ExtraSmall)
                     ) {
                         items(uiState.list) { review ->
                             ReviewCard(
                                 review,
-                                onShareClick = {}
                             )
                         }
                     }
@@ -154,8 +156,9 @@ fun ReviewListScreenContent(
 @Composable
 fun ReviewCard(
     review: Review,
-    onShareClick: () -> Unit
 ) {
+
+    val context = LocalContext.current
 
     Card(
         modifier = Modifier
@@ -185,7 +188,12 @@ fun ReviewCard(
                 )
 
                 IconButton(
-                    onClick = onShareClick
+                    onClick = {
+                        shareReview(
+                            context = context,
+                            review = review
+                        )
+                    }
                 ) {
                     Icon(
                         imageVector = Icons.Default.Share,
@@ -215,6 +223,25 @@ fun ReviewCard(
         }
     }
 }
+
+fun shareReview(
+    context: Context,
+    review: Review
+) {
+
+    val shareText = """
+        🍽 Food: ${review.foodName}
+        ⭐ Rating: ${review.rating}
+        💬 "${review.reviewText}"
+    """.trimIndent()
+
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, shareText)
+    }
+    context.startActivity(Intent.createChooser(intent, "Share Review"))
+}
+
 
 @Composable
 @Preview(showBackground = true)
