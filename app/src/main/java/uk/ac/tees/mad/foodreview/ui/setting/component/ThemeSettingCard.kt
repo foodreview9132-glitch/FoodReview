@@ -47,7 +47,7 @@ fun ThemeSettingCard(
                             style = MaterialTheme.typography.titleMedium
                         )
                         Text(
-                            text = "Enable Dark Theme",
+                            text = "Disable Dark Theme",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.50f)
                         )

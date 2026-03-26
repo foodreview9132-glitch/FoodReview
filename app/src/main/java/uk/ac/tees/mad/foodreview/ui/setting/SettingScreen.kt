@@ -145,6 +145,7 @@ fun SettingScreenContent(
                     }
                 }
             }
+            Spacer(modifier = Modifier.height(Dimens.ExtraSmall))
         }
     }
 }

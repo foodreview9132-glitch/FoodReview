@@ -22,14 +22,6 @@ class PreferenceManager(context: Context) {
     private val _isDarkModeFlow = MutableStateFlow(getDarkMode())
     val isDarkModeFLow = _isDarkModeFlow.asStateFlow()
 
-    init {
-        sharedPreferences.registerOnSharedPreferenceChangeListener { _ , key ->
-            if(key == IS_DARK_MODE){
-                _isDarkModeFlow.value = getDarkMode()
-            }
-        }
-    }
-
     fun isLoggedIn(): Boolean{
         return sharedPreferences.getBoolean(IS_LOGGED_IN ,false)
     }
@@ -60,6 +52,7 @@ class PreferenceManager(context: Context) {
                 IS_DARK_MODE , value
             )
         }
+        _isDarkModeFlow.value = value
     }
 
     fun getEmail(): String{

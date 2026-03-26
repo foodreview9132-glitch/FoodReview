@@ -141,7 +141,7 @@ fun FeedbackSubmissionScreenContent(
                     .padding(horizontal = Dimens.ScreenHorizontal),
                 label = {
                     Text(
-                        text = "Chicken Biryani"
+                        text = "Food Name"
                     )
                 },
                 singleLine = true,
